@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: templatehead"/>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <h1 class="mt-5">Web CRUD App</h1>
+          <p class="lead">Create or Update user</p>
+        </div>
+      </div>
+        <form th:action="@{${user.id != null} ? '/users/edit' : '/users/new'}"
+              th:object="${user}"
+              method="post"
+              class="row g-3 needs-validation"
+              th:classappend="${#fields.hasErrors('*') ? 'is-validated' : '' }">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control" th:field="*{name}" id="name"  placeholder="Enter user name"/>
+              <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalid-feedback"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email:</label>
+              <input type="text" class="form-control" th:field="*{email}" id="email"  placeholder="example@mail.ru"/>
+              <div th:errorclass="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="age" class="form-label">Age:</label>
+              <input type="text" class="form-control" th:field="*{age}" id="age" placeholder="Enter you age"/>
+              <div th:errorclass="invalid-feedback" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="role" class="form-label">Role:</label>
+              <input type="text" class="form-control" th:field="*{role}" id="role" placeholder="Enter role Admin or User"/>
+              <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:errorclass="invalid-feedback"></div>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+              <button class="btn btn-secondary" type="submit" th:text="*{getId()} ? 'Edit' : 'Create'"/>
+              <a href="/users" class="text-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+    <div th:replace="layout/layout :: footer"></div>
+  </body>
+</html>
