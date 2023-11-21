@@ -1,6 +1,5 @@
 package com.myapp.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.myapp")
+@ComponentScan(basePackages = {"com.myapp.controller", "com.myapp.service", "com.myapp.repository"})
 public class WebConfig implements WebMvcConfigurer {
 
     private final WebApplicationContext webApplicationContext;

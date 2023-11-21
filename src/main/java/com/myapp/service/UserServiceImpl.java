@@ -2,7 +2,6 @@ package com.myapp.service;
 
 import com.myapp.model.User;
 import com.myapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,16 +33,18 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createOrUpdateUser(User user) {
-        if (user.getId() == null) createUser(user);
+        if (user.getId() == null) userRepository.save(user);
         else {
-            updateUser(user);
+            userRepository.merge(user);
         }
     }
-
+    @Override
+    @Transactional
     public void createUser(User user) {
         userRepository.save(user);
     }
-
+    @Override
+    @Transactional
     public void updateUser(User user) {
         userRepository.merge(user);
     }
